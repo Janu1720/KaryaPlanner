@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execution Board | Karya Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="executionBoard" class="board-layout">
+        <!-- FIX: Added id="appSidebar" so the JS can find and collapse it -->
+        <aside class="sidebar neo-out" id="appSidebar">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; width: 100%;">
+                <img src="LogoApp.png" alt="Karya Planner" class="brand-logo nav-text" style="max-width: 120px; margin: 0;">
+                <button class="neo-out" style="background: transparent; border: none; color: var(--accent); font-size: 1.2rem; cursor: pointer; padding: 5px 12px; border-radius: 8px; margin: 0 auto; display: flex; align-items: center; justify-content: center;" title="Toggle Menu" onclick="document.getElementById('appSidebar').classList.toggle('collapsed')">☰</button>
+            </div>
+            <nav style="width: 100%;">
+                <a href="board.html" class="active">
+                    <img src="ExecutionBoard.png" class="nav-icon" alt="Board"> <span class="nav-text">Execution Board</span>
+                </a>
+                <a href="archive.html">
+                    <img src="Archive.png" class="nav-icon" alt="Archive"> <span class="nav-text">Archive</span>
+                </a>
+                <a href="profile.html">
+                    <img src="Profile.png" class="nav-icon" alt="Profile"> <span class="nav-text">Profile</span>
+                </a>
+                <div style="margin: 15px 0; border-top: 2px solid var(--shadow-dark); opacity: 0.5;"></div>
+                <a href="about.html">
+                    <img src="Profile.png" class="nav-icon" alt="About Us"> <span class="nav-text">About Us</span>
+                </a>
+                <a href="terms.html">
+                    <img src="Archive.png" class="nav-icon" alt="Terms"> <span class="nav-text">Terms & Conditions</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="board-content">
+            <header class="board-header">
+                <h2>Your Action Plan</h2>
+                <div class="header-actions">
+                    <div class="date-display neo-in" id="currentDateDisplay"></div>
+                    <button id="themeToggleBtn" class="theme-toggle neo-out">🌓 Mode</button>
+                </div>
+            </header>
+
+            <div class="board-grid">
+                
+                <!-- Left Panel: Calendar + Add Task Button -->
+                <div class="left-panel">
+                    <section class="calendar-section neo-out">
+                        <!-- Calendar will be dynamically rendered here by JS -->
+                    </section>
+                    <button id="addTaskBtn" class="add-task-btn neo-out">+ Add Task</button>
+                </div>
+
+                <!-- Split Container for Tasks -->
+                <section class="tasks-container">
+                    
+                    <!-- Left Column: Specific Date -->
+                    <div class="task-column tasks-section">
+                        <div class="task-section-header">
+                            <h3>Tasks for: <span id="selectedDateText">Today</span></h3>
+                        </div>
+                        <div class="task-list" id="selectedTaskList">
+                            <!-- Filtered tasks will inject here -->
+                        </div>
+                    </div>
+
+                    <!-- Right Column: All Upcoming -->
+                    <div class="task-column tasks-section">
+                        <div class="task-section-header">
+                            <h3>All Upcoming Tasks</h3>
+                        </div>
+                        <div class="task-list" id="activeTaskList">
+                            <!-- All tasks will inject here -->
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+            <!-- Edit Deadline Modal -->
+            <div id="editDeadlineModal" class="modal-overlay hidden">
+                <div class="modal-content neo-out">
+                    <h3>Edit Deadline</h3>
+                    <div class="modal-inputs">
+                        <div class="input-group">
+                            <label>Target Date</label>
+                            <input type="date" id="modalDateInput" class="neo-in">
+                        </div>
+                        <div class="input-group">
+                            <label>Target Time</label>
+                            <input type="time" id="modalTimeInput" class="neo-in">
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="modal-btn cancel neo-out" onclick="closeEditModal()">Cancel</button>
+                        <button class="modal-btn save neo-out" id="saveDeadlineBtn">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Priority Modal -->
+            <div id="editPriorityModal" class="modal-overlay hidden">
+                <div class="modal-content neo-out">
+                    <h3>Change Priority</h3>
+                    <div class="modal-inputs">
+                        <div class="input-group">
+                            <label>Priority Level</label>
+                            <select id="modalPriorityInput" class="neo-in">
+                                <option value="1">1 - Critical / Highest</option>
+                                <option value="2">2 - High</option>
+                                <option value="3">3 - Medium</option>
+                                <option value="4">4 - Low</option>
+                                <option value="5">5 - Very Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="modal-btn cancel neo-out" onclick="closePriorityModal()">Cancel</button>
+                        <button class="modal-btn save neo-out" id="savePriorityBtn">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="board.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Dump | AI Task Prioritizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <button id="backBtn" class="back-btn neo-out">← Back to Board</button>
+    <button id="themeToggleBtn" class="theme-toggle neo-out">🌓 Mode</button>
+
+    <div class="dump-container neo-out">
+        <h2>Brain Dump</h2>
+        <p>Type everything you need to do. Don't worry about order, just get it out of your head.</p>
+        
+        <textarea id="rawTasks" class="neo-in" placeholder="Example: I need to finish the Spring Boot API, email the client about the new UI, buy groceries, fix the CSS bug..." rows="6"></textarea>
+        
+        <button id="prioritizeBtn" class="submit-btn neo-out">Organize with AI</button>
+        
+        <div id="loadingIndicator" class="loading-state hidden">
+            <div class="spinner"></div>
+            <p>Llama 3 is analyzing your tasks...</p>
+        </div>
+    </div>
+
+    <!-- Custom Neumorphic Alert Modal -->
+    <div id="customAlertModal" class="modal-overlay hidden">
+        <div class="modal-content neo-out" style="max-width: 450px; text-align: center; padding: 30px;">
+            <div class="neo-in" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; font-size: 1.5rem;">
+                ⚠️
+            </div>
+            <h3 style="color: #EF4444; margin-bottom: 15px; font-weight: 800;">Tasks Rejected</h3>
+            <p id="customAlertText" style="color: var(--text-main); font-weight: 600; font-size: 0.95rem; margin-bottom: 25px; text-align: left; line-height: 1.6;"></p>
+            <button class="modal-btn save neo-out" id="closeAlertBtn" style="width: 100%; padding: 12px; font-weight: 800; border: none; cursor: pointer; color: var(--text-main); background: transparent;">Understood</button>
+        </div>
+    </div>
+
+    <script src="braindump.js"></script>
+</body>
+</html>

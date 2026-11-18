@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive | Karya Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="executionBoard" class="board-layout">
+        <!-- FIX: Added id="appSidebar" so the JS can find and collapse it -->
+        <aside class="sidebar neo-out" id="appSidebar">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; width: 100%;">
+                <img src="LogoApp.png" alt="Karya Planner" class="brand-logo nav-text" style="max-width: 120px; margin: 0;">
+                <button class="neo-out" style="background: transparent; border: none; color: var(--accent); font-size: 1.2rem; cursor: pointer; padding: 5px 12px; border-radius: 8px; margin: 0 auto; display: flex; align-items: center; justify-content: center;" title="Toggle Menu" onclick="document.getElementById('appSidebar').classList.toggle('collapsed')">☰</button>
+            </div>
+            <nav style="width: 100%;">
+                <a href="board.html">
+                    <img src="ExecutionBoard.png" class="nav-icon" alt="Board"> <span class="nav-text">Execution Board</span>
+                </a>
+                <a href="archive.html" class="active">
+                    <img src="Archive.png" class="nav-icon" alt="Archive"> <span class="nav-text">Archive</span>
+                </a>
+                <a href="profile.html">
+                    <img src="Profile.png" class="nav-icon" alt="Profile"> <span class="nav-text">Profile</span>
+                </a>
+                <div style="margin: 15px 0; border-top: 2px solid var(--shadow-dark); opacity: 0.5;"></div>
+                <a href="about.html">
+                    <img src="Profile.png" class="nav-icon" alt="About Us"> <span class="nav-text">About Us</span>
+                </a>
+                <a href="terms.html">
+                    <img src="Archive.png" class="nav-icon" alt="Terms"> <span class="nav-text">Terms & Conditions</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="board-content">
+            <header class="board-header">
+                <h2>Completed Tasks</h2>
+                <div class="header-actions">
+                    <button id="themeToggleBtn" class="theme-toggle neo-out">🌓 Mode</button>
+                </div>
+            </header>
+
+            <!-- Grid Container for Archive -->
+            <div class="tasks-section" style="padding-top: 10px; margin-top: 0; width: 100%;">
+                <div class="archive-grid" id="archiveTaskList">
+                    <!-- Completed tasks will inject here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="archive.js"></script>
+</body>
+</html>

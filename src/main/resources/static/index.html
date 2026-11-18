@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Karya Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* CRITICAL FIX: This stops hidden elements from acting like an invisible shield over the screen */
+        .hidden { 
+            opacity: 0 !important; 
+            pointer-events: none !important; 
+            visibility: hidden !important; 
+        }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.6); z-index: 9999;
+            transition: opacity 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    
+    <button id="themeToggleBtn" class="theme-toggle neo-out">🌓 Mode</button>
+
+    <!-- Gateway Container -->
+    <div id="authGateway" class="auth-container neo-out">
+        <img src="LogoApp.png" alt="Karya Planner" class="brand-logo" style="max-width: 150px; margin: 0 auto 20px auto; display: block;">
+        
+        <h2 id="authTitle" style="color: var(--accent);">Welcome Back</h2>
+        
+        <!-- Signup Fields (Dynamically shown via JS) -->
+        <div id="signupFields" class="hidden">
+            <div class="input-group">
+                <input type="text" id="signupName" class="neo-in" placeholder="Full Name">
+            </div>
+            <div class="input-group">
+                <input type="text" id="signupUsername" class="neo-in" placeholder="Username">
+            </div>
+        </div>
+
+        <!-- Standard Auth Fields -->
+        <div class="input-group">
+            <input type="email" id="emailInput" class="neo-in" placeholder="Email Address" required>
+        </div>
+        <div class="input-group">
+            <input type="password" id="passwordInput" class="neo-in" placeholder="Password" required>
+        </div>
+
+        <div id="authLoading" class="loading-state hidden" style="margin-top: 10px; margin-bottom: 15px;">
+            <div class="spinner" style="width: 20px; height: 20px; border-width: 3px;"></div>
+        </div>
+
+        <button id="authBtn" class="submit-btn neo-out" style="margin-bottom: 15px;">Log In</button>
+        
+        <button id="toggleAuthMode" class="neo-out" style="width: 100%; padding: 12px; cursor: pointer; color: var(--text-muted); border: none; background: transparent; font-weight: bold; border-radius: 12px;">
+            New here? Create an account
+        </button>
+    </div>
+
+    <!-- Custom Neumorphic Auth Modal -->
+    <div id="customAuthModal" class="modal-overlay hidden">
+        <div class="modal-content neo-out" style="max-width: 400px; text-align: center; padding: 30px;">
+            <div class="neo-in" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; font-size: 1.5rem;">
+                🔔
+            </div>
+            <h3 id="authModalTitle" style="color: var(--accent); margin-bottom: 15px; font-weight: 800;">Notice</h3>
+            <p id="authModalText" style="color: var(--text-main); font-weight: 600; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6; word-break: break-word;"></p>
+            <button id="closeAuthModalBtn" class="modal-btn save neo-out" style="width: 100%; padding: 12px; font-weight: 800; border: none; cursor: pointer; color: var(--text-main); background: transparent;">OK</button>
+        </div>
+    </div>
+
+    <!-- Using your preferred separate script file -->
+    <script src="script.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Karya Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="executionBoard" class="board-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar neo-out" id="appSidebar">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; width: 100%;">
+                <img src="LogoApp.png" alt="Karya Planner" class="brand-logo nav-text" style="max-width: 120px; margin: 0;">
+                <button id="toggleSidebarBtn" class="neo-out" style="background: transparent; border: none; color: var(--accent); font-size: 1.2rem; cursor: pointer; padding: 5px 12px; border-radius: 8px; margin: 0 auto; display: flex; align-items: center; justify-content: center;" title="Toggle Menu">
+                    ☰
+                </button>
+            </div>
+            
+            <nav style="width: 100%;">
+                <a href="board.html">
+                    <img src="ExecutionBoard.png" class="nav-icon" alt="Board"> <span class="nav-text">Execution Board</span>
+                </a>
+                <a href="archive.html">
+                    <img src="Archive.png" class="nav-icon" alt="Archive"> <span class="nav-text">Archive</span>
+                </a>
+                <a href="profile.html" class="active">
+                    <img src="Profile.png" class="nav-icon" alt="Profile"> <span class="nav-text">Profile</span>
+                </a>
+                
+                <div style="margin: 15px 0; border-top: 2px solid var(--shadow-dark); opacity: 0.5;"></div>
+                
+                <a href="about.html">
+                    <img src="Profile.png" class="nav-icon" alt="About Us"> <span class="nav-text">About Us</span>
+                </a>
+                <a href="terms.html">
+                    <img src="Archive.png" class="nav-icon" alt="Terms"> <span class="nav-text">Terms & Conditions</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="board-content">
+            <header class="board-header">
+                <h2>Your Profile</h2>
+                <div class="header-actions">
+                    <button id="themeToggleBtn" class="theme-toggle neo-out">🌓 Mode</button>
+                </div>
+            </header>
+
+            <div class="board-grid" style="grid-template-columns: 1fr 1fr; overflow-y: auto;">
+                
+                <!-- Left Column: Identity Card -->
+                <div style="padding: 20px; display: flex; flex-direction: column;">
+                    <div class="profile-card neo-out" style="padding: 30px; border-radius: 20px;">
+                        
+                        <div class="neo-out" style="width: 130px; height: 130px; border-radius: 50%; padding: 8px; margin: 0 auto 25px auto; display: flex; align-items: center; justify-content: center;">
+                            <img id="displayAvatar" src="avatar_01_female_smiling.png" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        
+                        <div class="neo-in" style="width: 100%; padding: 25px 20px; border-radius: 16px; margin-bottom: 25px; text-align: center;">
+                            <h3 id="displayName" style="margin-bottom: 8px; color: var(--accent); font-size: 1.6rem; font-weight: 800;">Loading Name...</h3>
+                            <p id="displayJob" class="job-title" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 700; color: var(--text-muted);">Job Title @ Company</p>
+                        </div>
+                        
+                        <div class="persona-block neo-in" style="width: 100%; padding: 25px 20px; border-radius: 16px;">
+                            <strong style="color: var(--accent); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">Working Persona</strong>
+                            <p id="displayPersona" style="font-size: 0.95rem; color: var(--text-main); font-weight: 600; line-height: 1.6;">Loading your working style and persona...</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Column: Edit Button, Tasks, & Logout -->
+                <div style="padding: 20px; display: flex; flex-direction: column; width: 100%; max-height: 100%;">
+                    
+                    <button id="openEditModalBtn" class="neo-out" style="width: 100%; margin-bottom: 25px; padding: 15px; font-size: 0.95rem; font-weight: 800; color: var(--accent); background: transparent; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        Edit Profile
+                    </button>
+
+                    <!-- Tasks Finished Today (Restricted growth to prevent overlap) -->
+                    <div style="width: 100%; flex-grow: 1; display: flex; flex-direction: column; margin-bottom: 25px; overflow: hidden;">
+                        <div class="task-section-header" style="border-bottom: none; margin-bottom: 15px; padding-bottom: 0;">
+                            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--accent); margin-left: 5px;">Tasks Finished Today</h3>
+                        </div>
+                        
+                        <!-- Scrollable inset container -->
+                        <div class="neo-in" style="padding: 25px; border-radius: 20px; flex-grow: 1; display: flex; flex-direction: column; width: 100%; overflow-y: auto;">
+                            <div class="task-list" id="todayCompletedTasks" style="padding: 0; gap: 15px; margin: 0; display: flex; flex-direction: column;">
+                                <!-- Today's completed tasks will inject here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIXED LOGOUT BUTTON: Now strictly placed below the tasks container -->
+                    <div style="display: flex; justify-content: flex-end; width: 100%;">
+                        <button id="logoutBtn" class="neo-out" style="padding: 12px 30px; font-size: 0.95rem; font-weight: 800; color: #ff4757; background: transparent; border: none; border-radius: 12px; cursor: pointer;">
+                            Logout
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal: Edit Profile & Settings -->
+            <div id="editProfileModal" class="modal-overlay hidden">
+                <div class="modal-content profile-modal neo-out" style="position: relative;">
+                    <button class="close-modal-x" onclick="closeProfileModal()" title="Close">×</button>
+                    
+                    <h3 style="margin-bottom: 10px;">Edit Profile & Settings</h3>
+                    
+                    <div class="modal-inputs">
+                        <label class="settings-label">Choose Avatar</label>
+                        <div class="avatar-picker scrollable-avatars neo-in">
+                            <img src="avatar_01_female_smiling.png" class="avatar-option neo-out active-avatar" onclick="selectAvatar('avatar_01_female_smiling.png', this)">
+                            <img src="avatar_02_female_sunglasses.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_02_female_sunglasses.png', this)">
+                            <img src="avatar_03_female_bun.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_03_female_bun.png', this)">
+                            <img src="avatar_04_female_bow_back.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_04_female_bow_back.png', this)">
+                            <img src="avatar_05_profile_add.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_05_profile_add.png', this)">
+                            <img src="avatar_06_female_headphones.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_06_female_headphones.png', this)">
+                            <img src="avatar_07_female_reading.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_07_female_reading.png', this)">
+                            <img src="avatar_08_female_shy.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_08_female_shy.png', this)">
+                            <img src="avatar_09_female_cap_back.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_09_female_cap_back.png', this)">
+                            <img src="avatar_10_blue_bow.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_10_blue_bow.png', this)">
+                            <img src="avatar_11_male_smiling.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_11_male_smiling.png', this)">
+                            <img src="avatar_12_male_sunglasses.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_12_male_sunglasses.png', this)">
+                            <img src="avatar_13_male_shy.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_13_male_shy.png', this)">
+                            <img src="avatar_14_male_back_view.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_14_male_back_view.png', this)">
+                            <img src="avatar_15_male_hand_in_hair.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_15_male_hand_in_hair.png', this)">
+                            <img src="avatar_16_male_headphones.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_16_male_headphones.png', this)">
+                            <img src="avatar_17_male_hoodie_side.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_17_male_hoodie_side.png', this)">
+                            <img src="avatar_18_male_mask.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_18_male_mask.png', this)">
+                            <img src="avatar_19_male_reading.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_19_male_reading.png', this)">
+                            <img src="avatar_20_cute_cat.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_20_cute_cat.png', this)">
+                            <img src="avatar_21_cute_ghost.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_21_cute_ghost.png', this)">
+                            <img src="avatar_22_teddy_bear.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_22_teddy_bear.png', this)">
+                            <img src="avatar_23_blue_crown.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_23_blue_crown.png', this)">
+                            <img src="avatar_24_moon_clouds.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_24_moon_clouds.png', this)">
+                            <img src="avatar_25_profile_add_alt.png" class="avatar-option neo-out" onclick="selectAvatar('avatar_25_profile_add_alt.png', this)">
+                        </div>
+
+                        <div class="input-group" style="margin-top: 15px;">
+                            <label class="settings-label">Full Name</label>
+                            <input type="text" id="inputName" class="neo-in" placeholder="Your Name">
+                        </div>
+                        <div class="input-group" style="display: flex; gap: 15px;">
+                            <div style="flex: 1;">
+                                <label class="settings-label">Position / Role</label>
+                                <input type="text" id="inputPosition" class="neo-in" placeholder="e.g. Data Scientist">
+                            </div>
+                            <div style="flex: 1;">
+                                <label class="settings-label">Company</label>
+                                <input type="text" id="inputCompany" class="neo-in" placeholder="e.g. Google">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="settings-label">User Persona</label>
+                            <textarea id="inputPersona" class="neo-in" placeholder="Describe your daily workflow, priorities, and domain..." style="width: 100%; height: 60px; padding: 15px; resize: vertical; border: none; outline: none; border-radius: 12px;"></textarea>
+                        </div>
+                        
+                        <hr style="border-top: 1px solid var(--shadow-dark); border-bottom: 1px solid var(--shadow-light); margin: 15px 0;">
+
+                        <div class="input-group">
+                            <label class="settings-label">Username (Email)</label>
+                            <input type="email" id="inputEmail" class="neo-in" readonly style="opacity: 0.7;">
+                        </div>
+                        <div class="input-group">
+                            <label class="settings-label">New Password</label>
+                            <input type="password" id="inputPassword" class="neo-in" placeholder="Enter new password to change">
+                        </div>
+                    </div>
+
+                    <div class="modal-actions" style="margin-top: 20px;">
+                        <button class="modal-btn save neo-out" id="saveProfileBtn" style="width: 100%; padding: 12px; font-weight: 800;">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,800 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+
+:root {
+    /* Light Mode Variables */
+    --bg-color: #e0e5ec;
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --shadow-light: rgba(255, 255, 255, 0.9);
+    --shadow-dark: rgba(163, 177, 198, 0.6);
+    --accent: #4F46E5;
+}
+
+[data-theme="dark"] {
+    /* Dark Mode Variables */
+    color-scheme: dark;
+    --bg-color: #26282B;
+    --text-main: #e0e5ec;
+    --text-muted: #8e939a;
+    --shadow-light: #323539;
+    --shadow-dark: #1a1b1d;
+    --accent: #6366f1;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Nunito', sans-serif; 
+}
+
+/* Base Body - Centered for Auth */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* --- Neumorphic Core --- */
+.neo-out {
+    background: var(--bg-color);
+    box-shadow: 8px 8px 16px var(--shadow-dark),
+               -8px -8px 16px var(--shadow-light);
+    border: none;
+    border-radius: 16px;
+}
+
+.neo-in {
+    background: var(--bg-color);
+    box-shadow: inset 5px 5px 10px var(--shadow-dark),
+                inset -5px -5px 10px var(--shadow-light);
+    border: none;
+    border-radius: 12px;
+}
+
+/* --- Theme Toggle & Header Actions --- */
+.header-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.theme-toggle {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    z-index: 1000;
+    background: transparent;
+}
+
+/* Absolute positioning for Login Page ONLY */
+#authGateway ~ .theme-toggle, button#themeToggleBtn.theme-toggle:not(.header-actions button) {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-toggle:active {
+    box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+}
+
+/* --- 1. Authentication Gateway --- */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 35px;
+    text-align: center;
+}
+.auth-container h2 { margin-bottom: 30px; font-size: 2rem; font-weight: 800; letter-spacing: 0.5px; }
+.input-group { margin-bottom: 15px; text-align: left; }
+.input-group input {
+    width: 100%;
+    padding: 14px 18px;
+    color: var(--text-main);
+    outline: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+.input-group input::placeholder { color: var(--text-muted); font-weight: 400; }
+
+button.submit-btn {
+    width: 100%;
+    padding: 14px;
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s ease;
+}
+button.submit-btn:active { box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light); }
+.toggle-link { margin-top: 20px; display: block; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+.toggle-link:hover { color: var(--accent); }
+.hidden { display: none !important; }
+
+/* --- 2. Execution Board Layout --- */
+.board-layout {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    background-color: var(--bg-color);
+    z-index: 100;
+}
+
+/* Sidebar Scaled Down & Made Transitionable */
+.sidebar {
+    width: 220px;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: width 0.3s ease, padding 0.3s ease !important;
+    overflow-x: hidden !important;
+}
+.brand { font-size: 1.5rem; font-weight: 800; margin-bottom: 30px; text-align: center; color: var(--accent); }
+.sidebar nav { display: flex; flex-direction: column; gap: 10px; flex-grow: 1; width: 100%; }
+.sidebar nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 700;
+    padding: 12px 15px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sidebar nav a:hover, .sidebar nav a.active {
+    color: var(--accent);
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+}
+
+/* Main Content Area */
+.board-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+.board-header h2 { font-weight: 800; font-size: 1.6rem; }
+.date-display { padding: 10px 15px; font-weight: 700; font-size: 0.8rem; border-radius: 12px; }
+
+/* Grid Layouts */
+.board-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 25px;
+    height: 100%;
+    overflow-y: hidden; 
+    padding: 25px;      
+    margin: -25px;      
+}
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+    gap: 25px;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.task-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Calendar Column */
+.calendar-section { padding: 20px; height: fit-content; border-radius: 16px; }
+.calendar-section h3 { font-weight: 700; margin-bottom: 15px; font-size: 1.1rem;}
+.calendar-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Tasks Column */
+.tasks-section {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 80px; 
+    padding-right: 25px;
+    padding-top: 25px;     
+    padding-left: 25px;    
+    margin-top: -25px;     
+    margin-left: -25px;    
+}
+
+/* Task List */
+.task-list { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+    padding: 15px; 
+}
+
+/* Task Cards Refactored for Flexbox Stack */
+.task-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px !important;
+    gap: 12px;
+    position: relative;
+    border-left: 5px solid transparent;
+    border-radius: 12px !important;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.task-title-row { 
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 0px; 
+    padding-right: 25px; /* Room for menu dots */
+}
+
+.task-title { 
+    font-weight: 800; 
+    font-size: 1rem !important; 
+    line-height: 1.4; 
+    word-break: break-word; 
+}
+
+.ai-comment { 
+    font-size: 0.75rem !important; 
+    color: var(--text-muted); 
+    padding-right: 15px !important; 
+    line-height: 1.4; 
+}
+
+/* Footer Flexbox Fix for Metadata */
+.task-footer {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto; 
+    padding-top: 15px;
+    border-top: 1px solid var(--shadow-dark); 
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.task-footer > div, 
+.task-footer > span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap; 
+}
+
+
+/* Priorities (1 = Red/Highest, 5 = Green/Lowest) */
+.priority-1 { border-left-color: #EF4444; } 
+.priority-2 { border-left-color: #F97316; } 
+.priority-3 { border-left-color: #F59E0B; } 
+.priority-4 { border-left-color: #3B82F6; } 
+.priority-5 { border-left-color: #10B981; } 
+
+/* 3-Dot Menu Scaled Down */
+.menu-container { position: absolute; top: 15px !important; right: 15px !important; }
+.menu-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem !important;
+    font-weight: 800;
+    cursor: pointer;
+    padding: 0px 10px;
+    line-height: 1;
+}
+.menu-btn:hover { color: var(--text-main); }
+.menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 140px;
+    z-index: 10;
+    padding: 8px;
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+}
+.menu-dropdown.show { display: flex; }
+.menu-dropdown button {
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    border-radius: 6px;
+}
+.menu-dropdown button:hover { box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light); }
+.delete-task { color: #e74c3c !important; }
+
+/* --- 3. Brain Dump Page --- */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    z-index: 1000;
+    background: transparent;
+}
+.back-btn:active { box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light); }
+
+.dump-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    text-align: center;
+}
+.dump-container h2 { margin-bottom: 10px; font-size: 2rem; font-weight: 800; }
+.dump-container p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.9rem; font-weight: 600; }
+
+textarea.neo-in {
+    width: 100%;
+    padding: 20px;
+    color: var(--text-main);
+    outline: none;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 150px;
+    margin-bottom: 15px;
+    background: transparent;
+}
+textarea.neo-in::placeholder { color: var(--text-muted); font-weight: 400; }
+
+/* Loading State */
+.loading-state {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: var(--accent);
+    font-weight: 700;
+}
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 4px solid var(--shadow-dark);
+    border-top: 4px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+
+.urgent-warning {
+    color: #EF4444;
+    font-weight: 800;
+    animation: blink-urgent 1.5s infinite;
+}
+
+.est-date {
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.task-checkbox {
+    appearance: none;
+    width: 20px !important;
+    height: 20px !important;
+    cursor: pointer;
+    border-radius: 6px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 2px;
+}
+.task-checkbox:checked {
+    background-color: var(--accent);
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+.task-checkbox:checked::after {
+    content: '✓';
+    color: white;
+    font-size: 13px !important;
+    font-weight: 900;
+}
+
+/* --- 5. Neumorphic Calendar --- */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+.cal-day-header { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); padding-bottom: 5px; }
+.cal-day {
+    padding: 8px 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.cal-day:hover {
+    box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+}
+.cal-day.active-day {
+    color: var(--accent);
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+.cal-day.dimmed { color: transparent; pointer-events: none; }
+
+/* --- 6. Task UI Shrink & Section Headers --- */
+.task-section-header {
+    border-bottom: 2px solid var(--shadow-dark);
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+.task-section-header h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+/* --- 7. Interactive Calendar Controls --- */
+.calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+.cal-nav-group {
+    display: flex;
+    gap: 5px;
+}
+.cal-btn {
+    background: var(--bg-color);
+    border: none;
+    color: var(--text-muted);
+    font-weight: 900;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 5px var(--shadow-dark), -2px -2px 5px var(--shadow-light);
+    transition: all 0.2s;
+}
+.cal-btn:active { box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light); color: var(--accent); }
+
+/* --- 8. Urgent Deadline Triggers --- */
+@keyframes pulse-urgent {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+@keyframes blink-urgent {
+    50% { opacity: 0; }
+}
+.urgent-task {
+    border: 1px solid #EF4444 !important;
+    border-left-width: 4px !important;
+    animation: pulse-urgent 2s infinite;
+}
+
+/* --- Brand & Nav Icons --- */
+.brand-logo { 
+    max-width: 150px; 
+    height: auto; 
+    display: block; 
+}
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+}
+
+/* --- 9. Custom Meta Icons & Edit Button --- */
+.meta-icon {
+    width: 13px;
+    height: 13px;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+}
+
+.edit-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: 4px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+.edit-btn:hover {
+    background: var(--shadow-dark);
+}
+
+/* Invert black icons to white in dark mode */
+[data-theme="dark"] .nav-icon,
+[data-theme="dark"] .meta-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* --- 10. Edit Deadline Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(3px);
+}
+.modal-overlay.hidden { display: none; }
+.modal-content {
+    padding: 25px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.modal-content h3 { font-size: 1.2rem; font-weight: 800; text-align: center; color: var(--accent); }
+.modal-inputs { display: flex; flex-direction: column; gap: 15px; }
+.modal-inputs label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; display: block; }
+.modal-inputs input, .modal-inputs select { width: 100%; padding: 10px; font-weight: 600; color: var(--text-main); outline: none; border-radius: 8px; border: none; background-color: transparent;}
+[data-theme="dark"] .modal-inputs input::-webkit-calendar-picker-indicator { filter: invert(1); }
+
+.modal-actions { display: flex; justify-content: space-between; gap: 15px; margin-top: 5px; }
+.modal-btn { flex: 1; padding: 10px; font-weight: 700; cursor: pointer; border-radius: 8px; transition: all 0.2s; background: transparent; border: none;}
+.modal-btn.cancel { color: var(--text-muted); }
+.modal-btn.save { color: var(--accent); }
+.modal-btn:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
+
+/* --- 11. Left Panel & Neumorphic Add Task Button --- */
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.add-task-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+.add-task-btn:active {
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+}
+
+/* --- 12. Archive Grid --- */
+.archive-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-content: start;
+}
+
+/* --- 13. Profile Page Specifics --- */
+.profile-card {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+}
+.avatar-display {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+.profile-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 5px;
+}
+.profile-card .job-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+.persona-block {
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+}
+.persona-block strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.persona-block p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+.settings-block {
+    padding: 25px;
+    border-radius: 20px;
+}
+.settings-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.profile-modal {
+    width: 500px; 
+    max-height: 85vh; 
+    overflow-y: auto;
+}
+
+.scrollable-avatars {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
+
+.avatar-option {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 3px;
+    transition: all 0.3s ease;
+}
+
+.active-avatar {
+    border: 2px solid var(--accent);
+}
+
+/* --- 14. Profile Modal & Logout Adjustments --- */
+.close-modal-x {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    font-weight: 300;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+    z-index: 10;
+}
+.close-modal-x:hover {
+    color: #EF4444;
+}
+
+.logout-btn-corner {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 25px;
+    color: #EF4444;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 12px;
+    background: transparent;
+    border: none;
+    transition: all 0.2s ease;
+    z-index: 50;
+}
+.logout-btn-corner:active {
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+}
+
+/* Responsive adjustment for Mobile screens */
+@media (max-width: 900px) {
+    .board-grid {
+        grid-template-columns: 1fr !important;
+        overflow-y: auto !important;
+    }
+}
+
+/* --- 15. Collapsible Sidebar --- */
+.sidebar {
+    transition: width 0.3s ease, padding 0.3s ease !important;
+    overflow-x: hidden !important;
+}
+.sidebar.collapsed {
+    width: 85px !important;
+    padding: 25px 10px !important;
+}
+.sidebar.collapsed .nav-text {
+    display: none !important;
+}
+.sidebar.collapsed nav a {
+    justify-content: center !important;
+    padding: 12px 0 !important;
+    gap: 0 !important;
+}
+.nav-text {
+    white-space: nowrap;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Karya Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="board-layout">
+        <!-- Sidebar Navigation (Now Collapsible) -->
+        <aside class="sidebar neo-out" id="appSidebar">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; width: 100%;">
+                <img src="LogoApp.png" alt="Karya Planner" class="brand-logo nav-text" style="max-width: 120px; margin: 0;">
+                <button id="toggleSidebarBtn" class="neo-out" style="background: transparent; border: none; color: var(--accent); font-size: 1.2rem; cursor: pointer; padding: 5px 12px; border-radius: 8px; margin: 0 auto; display: flex; align-items: center; justify-content: center;" title="Toggle Menu">☰</button>
+            </div>
+            <nav style="width: 100%;">
+                <a href="board.html"><img src="ExecutionBoard.png" class="nav-icon" alt="Board"> <span class="nav-text">Execution Board</span></a>
+                <a href="archive.html"><img src="Archive.png" class="nav-icon" alt="Archive"> <span class="nav-text">Archive</span></a>
+                <a href="profile.html"><img src="Profile.png" class="nav-icon" alt="Profile"> <span class="nav-text">Profile</span></a>
+                <div style="margin: 15px 0; border-top: 2px solid var(--shadow-dark); opacity: 0.5;"></div>
+                <a href="about.html" class="active"><img src="Profile.png" class="nav-icon" alt="About Us"> <span class="nav-text">About Us</span></a>
+                <a href="terms.html"><img src="Archive.png" class="nav-icon" alt="Terms"> <span class="nav-text">Terms & Conditions</span></a>
+            </nav>
+        </aside>
+
+        <main class="board-content">
+            <header class="board-header">
+                <h2>About Us</h2>
+                <div class="header-actions">
+                    <button id="themeToggleBtn" class="theme-toggle neo-out">🌓 Mode</button>
+                </div>
+            </header>
+            <div class="neo-in" style="padding: 40px 50px; border-radius: 20px; overflow-y: auto; height: calc(100vh - 120px); line-height: 1.8;">
+                <h1 style="color: var(--accent); font-size: 2rem; font-weight: 800; margin-bottom: 30px; text-align: center;">Turning Busy Thoughts into Calm, Clear Action</h1>
+                <h3 style="color: var(--accent); font-weight: 800; margin-top: 30px; font-size: 1.2rem;">Who We Are</h3>
+                <p style="font-weight: 600; color: var(--text-main);">Karya Planner is your smart daily planning companion designed to bring clarity and calm to busy lives. Whether you are a student juggling assignments, a working professional managing deadlines, or someone trying to stay on top of everyday chores, Karya Planner helps you organize what matters most—without the stress of complicated planners.</p>
+                <h3 style="color: var(--accent); font-weight: 800; margin-top: 30px; font-size: 1.2rem;">Why We Built Karya Planner</h3>
+                <p style="font-weight: 600; color: var(--text-main);">Most to-do lists still force you to do all the hard work: sorting tasks, guessing how long things will take, and deciding where to start. When you have too much on your plate, even making a list feels exhausting. We created Karya Planner so you can simply empty your mind in plain, everyday words and let smart assistance turn your thoughts into an organized step-by-step plan.</p>
+                <h3 style="color: var(--accent); font-weight: 800; margin-top: 30px; font-size: 1.2rem;">How Karya Planner Helps You Every Day</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-weight: 600; color: var(--text-main);">
+                    <li style="margin-bottom: 15px;"><strong style="color: var(--accent);">Effortless Brain Dump:</strong> Just type everything on your mind in one place—no need to worry about order or formatting. Karya Planner automatically breaks your thoughts into neat, individual tasks.</li>
+                    <li style="margin-bottom: 15px;"><strong style="color: var(--accent);">Smart Priorities & Quick Tips:</strong> Each task is automatically ranked from most urgent to least urgent with helpful tips on how to tackle it, so you always know what to do first.</li>
+                    <li style="margin-bottom: 15px;"><strong style="color: var(--accent);">Realistic Deadlines You Control:</strong> Karya Planner suggests a sensible completion time for every task, and you can easily adjust any deadline or priority whenever your plans change.</li>
+                    <li style="margin-bottom: 15px;"><strong style="color: var(--accent);">Interactive Calendar & Daily Focus:</strong> Click any date on the calendar to see what is due that day, alongside a complete overview of all your upcoming tasks.</li>
+                    <li style="margin-bottom: 15px;"><strong style="color: var(--accent);">Gentle Reminders & Progress Archive:</strong> Tasks within one hour of their deadline stand out clearly so nothing slips through the cracks. Once you tick a task off, it moves neatly into your completed archive with the exact date and time you finished it.</li>
+                    <li style="margin-bottom: 15px;"><strong style="color: var(--accent);">Comfortable Themes:</strong> Switch effortlessly between a soft Light Mode and a soothing Dark Mode to match your workspace and reduce eye strain.</li>
+                </ul>
+                <h3 style="color: var(--accent); font-weight: 800; margin-top: 30px; font-size: 1.2rem;">Our Promise to Users</h3>
+                <p style="font-weight: 600; color: var(--text-main);">We believe productivity tools should feel simple, encouraging, and clutter-free. Karya Planner is built to save your time, protect your focus, and give you the satisfaction of finishing your day with a clear mind.</p>
+                <hr style="border-top: 2px solid var(--shadow-dark); opacity: 0.5; margin: 40px 0;">
+                <h3 style="color: var(--accent); font-weight: 800; font-size: 1.2rem;">Creator & Contact Information</h3>
+                <p style="font-weight: 600; color: var(--text-main); margin-bottom: 10px;">Karya Planner was created by Janavi Patil with the goal of making everyday task planning effortless for everyone. Have feedback, questions, or suggestions? Feel free to get in touch:</p>
+                <div class="neo-out" style="padding: 20px; border-radius: 12px; font-weight: 700; color: var(--text-main); display: inline-block;">
+                    <p style="margin-bottom: 8px;"><strong style="color: var(--text-muted);">Application Name:</strong> Karya Planner</p>
+                    <p style="margin-bottom: 8px;"><strong style="color: var(--text-muted);">Created By:</strong> Janavi Patil, Sharmee Das</p>
+                    <p style="margin-bottom: 8px;"><strong style="color: var(--text-muted);">Email Address:</strong> patiljanavi2017@gmail.com</p>
+                    <p style="margin-bottom: 0;"><strong style="color: var(--text-muted);">Phone Number:</strong> +91 7507535546</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') document.documentElement.removeAttribute('data-theme');
+                else document.documentElement.setAttribute('data-theme', 'dark');
+            });
+        }
+        
+        // Sidebar Collapse Logic
+        const sidebar = document.getElementById('appSidebar');
+        const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+        if (toggleSidebarBtn && sidebar) {
+            if (window.innerWidth <= 900) sidebar.classList.add('collapsed');
+            toggleSidebarBtn.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+        }
+    </script>
+</body>
+</html>
